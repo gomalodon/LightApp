@@ -53,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
         // UI Initialization
         final Button buttonConnect = findViewById(R.id.buttonConnect);
         final Toolbar toolbar = findViewById(R.id.toolbar);
+        final TextView blText = findViewById(R.id.BlTitle);
+        final TextView blSubText = findViewById(R.id.BlSubTitle);
         final ProgressBar progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
         final TextView textViewInfo = findViewById(R.id.textViewInfo);
@@ -60,8 +62,11 @@ public class MainActivity extends AppCompatActivity {
         buttonToggle.setEnabled(false);
         final Button buzzerToggle = findViewById(R.id.buzzerToggle);
         buttonToggle.setEnabled(false);
+        final ImageView settings = findViewById(R.id.settings);
 //        final ImageView imageView = findViewById(R.id.imageView);
 //        imageView.setBackgroundColor(getResources().getColor(R.color.colorOff));
+
+//        NavigationUI.setupActionBarWithNavController(this,navController, drawerLayout)
 
         // If a bluetooth device has been selected from SelectDeviceActivity
         deviceName = getIntent().getStringExtra("deviceName");
@@ -69,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             // Get the device address to make BT Connection
             deviceAddress = getIntent().getStringExtra("deviceAddress");
             // Show progree and connection status
-            toolbar.setSubtitle("Connecting to " + deviceName + "...");
+            blSubText.setText("Connecting to " + deviceName + "...");
             progressBar.setVisibility(View.VISIBLE);
             buttonConnect.setEnabled(false);
 
@@ -93,13 +98,14 @@ public class MainActivity extends AppCompatActivity {
                     case CONNECTING_STATUS:
                         switch(msg.arg1){
                             case 1:
-                                toolbar.setSubtitle("Connected to " + deviceName);
+                                blSubText.setText("Connected to " + deviceName);
                                 progressBar.setVisibility(View.GONE);
                                 buttonConnect.setEnabled(true);
                                 buttonToggle.setEnabled(true);
+                                connectedThread.write("2");
                                 break;
                             case -1:
-                                toolbar.setSubtitle("Device fails to connect");
+                                blSubText.setText("Device fails to connect");
                                 progressBar.setVisibility(View.GONE);
                                 buttonConnect.setEnabled(true);
                                 break;
@@ -187,6 +193,16 @@ public class MainActivity extends AppCompatActivity {
                 if (cmdText != null) {
                     connectedThread.write(cmdText);
                 }
+            }
+        });
+
+        // Settings button
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("myTag", "settings");
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intent);
             }
         });
     }
