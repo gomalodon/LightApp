@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("myTag", "Start");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -57,8 +58,10 @@ public class MainActivity extends AppCompatActivity {
         final TextView textViewInfo = findViewById(R.id.textViewInfo);
         final Button buttonToggle = findViewById(R.id.buttonToggle);
         buttonToggle.setEnabled(false);
-        final ImageView imageView = findViewById(R.id.imageView);
-        imageView.setBackgroundColor(getResources().getColor(R.color.colorOff));
+        final Button buzzerToggle = findViewById(R.id.buzzerToggle);
+        buttonToggle.setEnabled(false);
+//        final ImageView imageView = findViewById(R.id.imageView);
+//        imageView.setBackgroundColor(getResources().getColor(R.color.colorOff));
 
         // If a bluetooth device has been selected from SelectDeviceActivity
         deviceName = getIntent().getStringExtra("deviceName");
@@ -107,11 +110,19 @@ public class MainActivity extends AppCompatActivity {
                         String arduinoMsg = msg.obj.toString(); // Read message from Arduino
                         switch (arduinoMsg.toLowerCase()){
                             case "led is turned on":
-                                imageView.setBackgroundColor(getResources().getColor(R.color.colorOn));
+//                                imageView.setBackgroundColor(getResources().getColor(R.color.colorOff));
                                 textViewInfo.setText("Arduino Message : " + arduinoMsg);
                                 break;
                             case "led is turned off":
-                                imageView.setBackgroundColor(getResources().getColor(R.color.colorOff));
+//                                imageView.setBackgroundColor(getResources().getColor(R.color.colorOn));
+                                textViewInfo.setText("Arduino Message : " + arduinoMsg);
+                                break;
+                            case "buzzer on":
+//                                imageView.setBackgroundColor(getResources().getColor(R.color.colorOff));
+                                textViewInfo.setText("Arduino Message : " + arduinoMsg);
+                                break;
+                            case "buzzer off":
+//                                imageView.setBackgroundColor(getResources().getColor(R.color.colorOn));
                                 textViewInfo.setText("Arduino Message : " + arduinoMsg);
                                 break;
                         }
@@ -140,16 +151,42 @@ public class MainActivity extends AppCompatActivity {
                     case "turn on":
                         buttonToggle.setText("Turn Off");
                         // Command to turn on LED on Arduino. Must match with the command in Arduino code
-                        cmdText = "<turn on>";
+                        cmdText = "1";
                         break;
                     case "turn off":
                         buttonToggle.setText("Turn On");
                         // Command to turn off LED on Arduino. Must match with the command in Arduino code
-                        cmdText = "<turn off>";
+                        cmdText = "0";
                         break;
                 }
                 // Send command to Arduino board
-                connectedThread.write(cmdText);
+                if (cmdText != null) {
+                    connectedThread.write(cmdText);
+                }
+            }
+        });
+
+        // Button to ON/OFF BUZZER
+        buzzerToggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("myTag", "buzzer");
+                String cmdText = null;
+                String btnState = buzzerToggle.getText().toString().toLowerCase();
+                switch (btnState){
+                    case "buzz on":
+                        buzzerToggle.setText("Buzz Off");
+                        cmdText = "2";
+                        break;
+                    case "buzz off":
+                        buzzerToggle.setText("Buzz On");
+                        cmdText = "3";
+                        break;
+                }
+                // Send command to Arduino board
+                if (cmdText != null) {
+                    connectedThread.write(cmdText);
+                }
             }
         });
     }
