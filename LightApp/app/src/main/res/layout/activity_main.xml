@@ -51,29 +51,43 @@
         android:id="@+id/buttonToggle"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:text="Turn On"
+        android:layout_height="200dp"
+        android:text="Find Bike\n\nOn"
         android:textSize="24sp"
+        android:background="@drawable/rounded_corner_view"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/buzzerToggle"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="70dp"
+<!--    <Button-->
+<!--        android:id="@+id/buzzerToggle"-->
+<!--        style="@style/Widget.AppCompat.Button.Colored"-->
+<!--        android:layout_width="70dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Buzz Off"-->
+<!--        android:textSize="12sp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.5"-->
+<!--        app:layout_constraintVertical_bias="0.1"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textViewInfo" />-->
+
+    <Switch
+        android:id="@+id/buzzerSwitch"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:text="Buzz On"
-        android:textSize="12sp"
+        android:text="Buzzer\nSound"
+        android:textSize="16sp"
+        android:checked="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintVertical_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewInfo" />
-
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -101,6 +115,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonToggle" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

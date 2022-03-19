@@ -17,8 +17,10 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Switch;
 import android.widget.TextView;
 
 
@@ -58,8 +60,10 @@ public class MainActivity extends AppCompatActivity {
         final TextView textViewInfo = findViewById(R.id.textViewInfo);
         final Button buttonToggle = findViewById(R.id.buttonToggle);
         buttonToggle.setEnabled(false);
-        final Button buzzerToggle = findViewById(R.id.buzzerToggle);
-        buttonToggle.setEnabled(false);
+//        final Button buzzerToggle = findViewById(R.id.buzzerToggle);
+//        buzzerToggle.setEnabled(false);
+        final Switch buzzerSwitch = findViewById(R.id.buzzerSwitch);
+        buzzerSwitch.setEnabled(false);
 //        final ImageView imageView = findViewById(R.id.imageView);
 //        imageView.setBackgroundColor(getResources().getColor(R.color.colorOff));
 
@@ -97,6 +101,9 @@ public class MainActivity extends AppCompatActivity {
                                 progressBar.setVisibility(View.GONE);
                                 buttonConnect.setEnabled(true);
                                 buttonToggle.setEnabled(true);
+//                                buzzerToggle.setEnabled(true);
+                                buzzerSwitch.setEnabled(true);
+//                                connectedThread.write("2");
                                 break;
                             case -1:
                                 toolbar.setSubtitle("Device fails to connect");
@@ -148,13 +155,13 @@ public class MainActivity extends AppCompatActivity {
                 String cmdText = null;
                 String btnState = buttonToggle.getText().toString().toLowerCase();
                 switch (btnState){
-                    case "turn on":
-                        buttonToggle.setText("Turn Off");
+                    case "find bike\n\non":
+                        buttonToggle.setText("Find Bike\n\nOff");
                         // Command to turn on LED on Arduino. Must match with the command in Arduino code
                         cmdText = "1";
                         break;
-                    case "turn off":
-                        buttonToggle.setText("Turn On");
+                    case "find bike\n\noff":
+                        buttonToggle.setText("Find Bike\n\nOn");
                         // Command to turn off LED on Arduino. Must match with the command in Arduino code
                         cmdText = "0";
                         break;
@@ -166,27 +173,49 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Button to ON/OFF BUZZER
-        buzzerToggle.setOnClickListener(new View.OnClickListener() {
+//        // Button to ON/OFF BUZZER
+//        buzzerToggle.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Log.d("myTag", "buzzer");
+//                String cmdText = null;
+//                String btnState = buzzerToggle.getText().toString().toLowerCase();
+//                switch (btnState){
+//                    case "buzz on":
+//                        buzzerToggle.setText("Buzz Off");
+//                        cmdText = "2";
+//                        break;
+//                    case "buzz off":
+//                        buzzerToggle.setText("Buzz On");
+//                        cmdText = "3";
+//                        break;
+//                }
+//                // Send command to Arduino board
+//                if (cmdText != null) {
+//                    connectedThread.write(cmdText);
+//                }
+//            }
+//        });
+
+        // switch BUZZER
+        buzzerSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                Log.d("myTag", "buzzer");
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.d("myTag", String.valueOf(isChecked));
                 String cmdText = null;
-                String btnState = buzzerToggle.getText().toString().toLowerCase();
-                switch (btnState){
-                    case "buzz on":
-                        buzzerToggle.setText("Buzz Off");
-                        cmdText = "2";
-                        break;
-                    case "buzz off":
-                        buzzerToggle.setText("Buzz On");
-                        cmdText = "3";
-                        break;
+//                boolean btnState = buzzerSwitch.isChecked();
+                if (isChecked) {
+                    buzzerSwitch.setChecked(false);
+                    cmdText = "2";
+                } else {
+                    buzzerSwitch.setChecked(true);
+                    cmdText = "3";
                 }
                 // Send command to Arduino board
                 if (cmdText != null) {
                     connectedThread.write(cmdText);
                 }
+                buzzerSwitch.setChecked(isChecked);
             }
         });
     }
