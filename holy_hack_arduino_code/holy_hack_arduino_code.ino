@@ -1,7 +1,6 @@
 // libraties toevoegen
 #include <Servo.h>
 #include <SoftwareSerial.h>
-//#include <TimedAction.h>
 
 SoftwareSerial bluetooth(8, 9);
 const int redLEDpin = 6;
@@ -18,7 +17,7 @@ const char buzz_off = '3';
 // Define variables
 char msg;
 bool buzz, searching;
-long int t;
+unsigned long t;
 
 
 void setup() {
@@ -39,6 +38,7 @@ void setup() {
   buzz = true; searching = false;
   t = millis();
 }
+
 
 void loop() {
   // rcv message
@@ -80,8 +80,6 @@ void loop() {
       searching = false;
     } else if (millis() - t > 5*1000) noTone(buzzer_pin);
   }
-  //Serial.println(millis());
-  //Serial.println(t);
 }
 
 //-------EIGEN FUNCTIES-------
