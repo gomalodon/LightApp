@@ -1,6 +1,7 @@
 // libraties toevoegen
 #include <Servo.h>
 #include <SoftwareSerial.h>
+//#include <TimedAction.h>
 
 SoftwareSerial bluetooth(8, 9);
 const int redLEDpin = 6;
@@ -14,8 +15,11 @@ const char stop_find = '0';
 const char buzz_on = '2';
 const char buzz_off = '3';
 
+// Define variables
 char msg;
-bool buzz = true;
+bool buzz, searching;
+long int t;
+
 
 void setup() {
 
@@ -32,6 +36,8 @@ void setup() {
 
   // Define variables
   msg = stop_find;
+  buzz = true; searching = false;
+  t = millis();
 }
 
 void loop() {
@@ -45,14 +51,17 @@ void loop() {
   // Control Arduino board
   switch (msg){
     case find_bike:
-      set_color(HIGH, HIGH, HIGH); // Turn on LED
+      set_color(HIGH, LOW, LOW); // Turn on LED
       if (buzz) tone(buzzer_pin, 1000);
       bluetooth.println("LED is turned on\n"); // Send status message to Android
+      searching = true;
+      t = millis();
       break;
     case stop_find:
       set_color(LOW, LOW, LOW); // Turn off LED
       noTone(buzzer_pin);
       bluetooth.println("LED is turned off\n"); // Send status message to Android
+      searching = false;
       break;
     case buzz_on:
       buzz = true;
@@ -64,6 +73,15 @@ void loop() {
       break;
   }
   msg = idle;
+
+  if (searching) {
+    if (millis() - t > 10*1000) {
+      set_color(LOW, LOW, LOW);
+      searching = false;
+    } else if (millis() - t > 5*1000) noTone(buzzer_pin);
+  }
+  //Serial.println(millis());
+  //Serial.println(t);
 }
 
 //-------EIGEN FUNCTIES-------
