@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         final Button buttonToggle = findViewById(R.id.buttonToggle);
         buttonToggle.setEnabled(false);
         final Button buzzerToggle = findViewById(R.id.buzzerToggle);
-        buttonToggle.setEnabled(false);
+        buzzerToggle.setEnabled(false);
 //        final ImageView imageView = findViewById(R.id.imageView);
 //        imageView.setBackgroundColor(getResources().getColor(R.color.colorOff));
 
@@ -97,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
                                 progressBar.setVisibility(View.GONE);
                                 buttonConnect.setEnabled(true);
                                 buttonToggle.setEnabled(true);
+                                buzzerToggle.setEnabled(true);
+                                connectedThread.write("2");
                                 break;
                             case -1:
                                 toolbar.setSubtitle("Device fails to connect");

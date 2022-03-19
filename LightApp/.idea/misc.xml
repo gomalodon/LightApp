@@ -3,7 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/gielo/AndroidStudioProjects/LightApp/LightApp/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/gielo/AndroidStudioProjects/LightApp/LightApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2703125" />
+        <entry key="..\:/Users/gielo/AndroidStudioProjects/LightApp/LightApp/app/src/main/res/drawable-v24/rounded_corner_view.xml" value="0.2703125" />
+        <entry key="..\:/Users/gielo/AndroidStudioProjects/LightApp/LightApp/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.25625" />
+        <entry key="..\:/Users/gielo/AndroidStudioProjects/LightApp/LightApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2703125" />
+        <entry key="..\:/Users/gielo/AndroidStudioProjects/LightApp/LightApp/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/gielo/AndroidStudioProjects/LightApp/LightApp/app/src/main/res/layout/activity_select_device.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/gielo/AndroidStudioProjects/LightApp/LightApp/app/src/main/res/layout/device_info_layout.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/gielo/AndroidStudioProjects/LightApp/LightApp/app/src/main/res/layout/settings_activity.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/gielo/AndroidStudioProjects/LightApp/LightApp/app/src/main/res/xml/preferences.xml" value="0.128125" />
         <entry key="..\:/Users/gielo/AndroidStudioProjects/LightApp/app/src/main/res/drawable-v24/rounded_corner_view.xml" value="0.2703125" />
         <entry key="..\:/Users/gielo/AndroidStudioProjects/LightApp/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/gielo/AndroidStudioProjects/LightApp/app/src/main/res/layout/device_info_layout.xml" value="0.25416666666666665" />
